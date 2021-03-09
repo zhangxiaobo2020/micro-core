@@ -44,6 +44,12 @@ public class SecurityFilter implements Filter {
             return;
         }
 
+        response.setHeader("Access-Control-Allow-Origin", request.getHeader("Origin"));
+        response.setHeader("Access-Control-Allow-Methods", "*");
+        response.setHeader("Access-Control-Allow-Headers", "*");
+        response.setHeader("Access-Control-Max-Age", "3600");
+        response.setHeader("Access-Control-Allow-Credentials", "true");
+
 
         //如果需要安全验证
         if (this.auth != null && this.auth) {
@@ -56,8 +62,6 @@ public class SecurityFilter implements Filter {
                     return;
                 }
             }
-
-
 
             ISecurityCacheDao securityCacheDao = (SecurityCacheDao) SpringContextUtils.getBean("securityCacheDao");
 
